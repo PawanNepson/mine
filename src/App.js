@@ -1,25 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
 
-function App() {
+import { useReducer } from "react";
+
+
+
+function reducer(state, action) {
+  switch (action.type) {
+    case "inc":
+      return { count: state.count + 1 }
+    case "incD":
+      return { count: state.count - 1 }
+    default:
+      return state
+  }
+}
+function Counter() {
+
+
+  const [state, dispatch] = useReducer(reducer, { count: 0 })
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+
+      <button onClick={() => dispatch({ type: "inc" })}>+</button>
+      <span>{state.count}</span>
+      <button onClick={() => dispatch({ type: "incD" })}>-</button>
     </div>
-  );
+  )
 }
 
-export default App;
+
+
+export const App = () => {
+  console.log("we are in app")
+  return <Counter />
+}
